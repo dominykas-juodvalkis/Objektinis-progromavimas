@@ -1,36 +1,36 @@
-from pydantic import BaseModel, EmailStr
+from typing import Optional
+from pydantic import BaseModel, BaseConfig, EmailStr
 from datetime import date
 
 
 # User -----
 
 class UserCreate(BaseModel):
-    name: str
-    email: EmailStr
+    Name: str
+    Email: EmailStr
+
 
 class UserRead(BaseModel):
     id: int
-    name: str
-    email: EmailStr
+    Name: str
+    Email: EmailStr
 
     class Config:
-        from_attributes = True
+        orm_mode = True
 
 
-
-#Birthday -------
+# Birthday -------
 
 class BirthdayCreate(BaseModel):
-    user_id: int
-    name: str
-    date: date
+    Name: str
+    Date: date
+
 
 class BirthdayRead(BaseModel):
-    id: int
-    user_id: int
-    name: str
-    date: date
+    id: Optional[int]
+    user_id: Optional[int]
+    Name: str = "Friend"
+    Date: date = date.today()
 
     class Config:
-        from_attributes = True
-    
+        orm_mode = True

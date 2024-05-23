@@ -5,7 +5,7 @@ import threading
 SQLALCHEMY_DATABASE_URL = 'sqlite:///.database.db'
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+SessionLocal = sessionmaker(bind=engine, autocommit=False, autoflush=False)
 Base = declarative_base()
 
 class Database:
@@ -20,10 +20,6 @@ class Database:
                     cls._instance.engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={"check_same_thread": False})
                     cls._instance.SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=cls._instance.engine)
         return cls._instance
-
-    def get_db(self):
-        db = self.SessionLocal()
-        try:
-            yield db
-        finally:
-            db.close()
+    
+    def get_db():
+        return SessionLocal()

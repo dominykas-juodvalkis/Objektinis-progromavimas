@@ -1,16 +1,21 @@
-from schemas import BirthdayRead
+import schemas as scheme
 import json
+from typing import List, Dict
 
 
 class FileOperator:
-    def save_birthdays_to_file(birthdays: list[BirthdayRead], filename: str):
+    def save_birthdays_to_file(birthdays: List[scheme.BirthdayRead], filename: str):
         with open(filename, 'w') as file:
-            json.dump([birthday.model_dump() for birthday in birthdays], file)
+            birthday_dicts = [
+                {
+                    "id": birthday.id,
+                    "user_id": birthday.user_id,
+                    "Name": birthday.Name,
+                    "Date": birthday.Date.isoformat()  # Convert date to ISO format string
+                }
+                for birthday in birthdays
+            ]
+            json.dump(birthday_dicts, file)
 
-    def load_birthdays_from_file(filename: str) -> list[BirthdayRead]:
-        with open(filename, 'r') as file:
-            data = json.load(file)
-        return [BirthdayRead(**birthday) for birthday in data]
-
-
-filename = "birthdays.txt"
+            
+filename = "birthdays.json"

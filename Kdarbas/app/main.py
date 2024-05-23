@@ -1,9 +1,15 @@
 from fastapi import FastAPI
-from database import engine
-from routers.router import router
-from models import Base
+import router as Myrouter
+import database as data
 
 app = FastAPI()
-app.include_router(router)
+app.include_router(Myrouter.router)
 
-Base.metadata.create_all(bind=engine)
+@app.get("/")
+def read_root():
+    return {"message": "Root URL"}
+
+data.Base.metadata.create_all(data.engine)
+
+for route in app.routes:
+    print(f"{route.path} -> {route.name}")
