@@ -1,3 +1,5 @@
+(Dirbtinio intelekto sistemų) 1 kurso Objektinio Programavimo dalyko Kursinis darbas
+
 Įvadas:
 
 Mano projektas buvo sukurti BirthdayReminder programą. Aš šį projektą pradėjau daryti pythono kalbą, kaip ir yra pagal reikalavimus, naudodamas fastapi framework'ą. Programa jungiama per terminalą, įvedant "uvicorn main:app" komandą - tai įjungia duomenų baze, ir tada prie jos galima prisijungti. Fastapi framework'as valdomas per "localhost/docs" browser'io svetainę.
